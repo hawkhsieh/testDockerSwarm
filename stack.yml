@@ -1,0 +1,6 @@
+version: '3'
+services:
+  httpserver:
+    image: httpserver
+    ports:
+      - "80:80"

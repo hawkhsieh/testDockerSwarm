@@ -1,0 +1,18 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+    "os"
+)
+
+func main() {
+	http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "This is container: %s",os.Getenv("HOSTNAME"))
+	})
+
+	fs := http.FileServer(http.Dir("static/"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	http.ListenAndServe(":80", nil)
+}
